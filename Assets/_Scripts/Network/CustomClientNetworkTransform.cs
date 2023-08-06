@@ -10,15 +10,10 @@ public class CustomClientNetworkTransform : NetworkBehaviour
     private Rigidbody2D _rigidbody;
     private float _originalTransformXScale;
 
-    private uint _tick;
-    private float _tickRate;
-    private float _tickDeltaTime;
-
     private void Awake()
     {
         _rigidbody = GetComponent<Rigidbody2D>();
 
-        _tickRate = 1 / (float) NetworkManager.Singleton.NetworkTickSystem.TickRate;
         _currentPlayerPosition.OnValueChanged += OnPositionChanged;
         _currentPlayerOrientation.OnValueChanged += OnOrientationChanged;
         _originalTransformXScale = transform.localScale.x;
@@ -40,22 +35,15 @@ public class CustomClientNetworkTransform : NetworkBehaviour
     {
         if (IsOwner) return;
 
-        _tickDeltaTime += Time.deltaTime;
-
         // render entity position
         var nextPos = new Vector3(_currentPlayerPosition.Value.x, _currentPlayerPosition.Value.y, transform.position.z);
         // transform.position = Vector3.Lerp(transform.position, nextPos, _tickDeltaTime / _tickRate);
         transform.position = nextPos;
-        
+
         // render entity orientation
         var scale = transform.localScale;
         scale.x = _originalTransformXScale * _currentPlayerOrientation.Value;
         transform.localScale = scale;
-
-        if (_tickDeltaTime < _tickRate) return;
-
-        _tick++;
-        _tickDeltaTime -= _tickRate;
     }
 
     private void UpdateTransformOrientation(sbyte orientation)

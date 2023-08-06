@@ -10,7 +10,7 @@ public class EnemyCtrl : NetworkBehaviour
     [SerializeField] private EntityNetworkTransform _networkTransform;
 
     private Transform _playerTransform;
-    private Vector2 movementDirection;
+    private Vector2 _movementDirection;
     private sbyte _lastOrientation = 1;
 
     private void FixedUpdate()
@@ -25,7 +25,7 @@ public class EnemyCtrl : NetworkBehaviour
 
     private void HandleAnimations()
     {
-        _animator.SetBool(IS_MOVING, movementDirection != Vector2.zero);
+        _animator.SetBool(IS_MOVING, _movementDirection != Vector2.zero);
     }
 
     private void FindPlayer()
@@ -38,11 +38,11 @@ public class EnemyCtrl : NetworkBehaviour
 
     private void HandleOrientation()
     {
-        if (movementDirection.x < 0)
+        if (_movementDirection.x < 0)
         {
             _lastOrientation = -1;
         }
-        else if (movementDirection.x > 0)
+        else if (_movementDirection.x > 0)
         {
             _lastOrientation = 1;
         }
@@ -55,12 +55,12 @@ public class EnemyCtrl : NetworkBehaviour
         if (_playerTransform == null)
         {
             Debug.Log($"[{gameObject.name}]: No player found, not moving");
-            movementDirection = Vector2.zero;
+            _movementDirection = Vector2.zero;
             _networkTransform.StopEntity();
             return;
         }
 
-        movementDirection = (_playerTransform.position - transform.position).normalized;
-        _networkTransform.MoveEntity(movementDirection, _speed);
+        _movementDirection = (_playerTransform.position - transform.position).normalized;
+        _networkTransform.MoveEntity(_movementDirection, _speed);
     }
 }

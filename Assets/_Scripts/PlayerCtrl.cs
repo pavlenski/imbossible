@@ -1,6 +1,10 @@
 ﻿using System;
+using Unity.Mathematics;
 using Unity.Netcode;
+using Unity.VisualScripting;
 using UnityEngine;
+using UnityEngine.InputSystem;
+using UnityEngine.Rendering.Universal;
 
 public class PlayerCtrl : NetworkBehaviour
 {
@@ -8,6 +12,7 @@ public class PlayerCtrl : NetworkBehaviour
 
     [SerializeField] private PlayerInputCtrl _playerInput;
     [SerializeField] private float _moveSpeed = 5f;
+    [SerializeField] private GameObject _fireBoltPrefab;
 
     private Animator _animator;
     private CustomClientNetworkTransform _networkTransform;
@@ -20,6 +25,15 @@ public class PlayerCtrl : NetworkBehaviour
         _playerInput = GetComponent<PlayerInputCtrl>();
         _animator = GetComponentInChildren<Animator>();
         _networkTransform = GetComponent<CustomClientNetworkTransform>();
+    }
+
+    private void Update()
+    {
+        if (!IsOwner) return;
+        
+        if (!Input.GetKeyDown(KeyCode.Mouse0)) return;
+
+        SpawnProjectileServerRpc(Vector2.right);
     }
 
     private void FixedUpdate()
@@ -54,5 +68,13 @@ public class PlayerCtrl : NetworkBehaviour
             _lastOrientation = 1;
             _networkTransform.UpdateOwnerOrientation(_lastOrientation);
         }
+    }
+
+    [ServerRpc]
+    private void SpawnProjectileServerRpc(Vector2 projectileDirection)
+    {
+        var go = Instantiate(_fireBoltPrefab, transform.position, Quaternion.identity);
+        go.GetComponent<NetworkObject>().Spawn();
+        go.GetComponent<ProjectileCtrl>().Init(projectileDirection);
     }
 }

@@ -47,7 +47,6 @@ public class EntityNetworkTransform : NetworkBehaviour
             return;
         }
 
-        // Debug.Log($"what, ms {speed} - mdir {moveDir}");
         _rigidbody.velocity = moveDir * speed * Time.fixedDeltaTime;
         _currentPosition.Value = _rigidbody.position;
     }
