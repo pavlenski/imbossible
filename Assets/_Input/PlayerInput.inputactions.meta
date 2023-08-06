@@ -1,0 +1,14 @@
+fileFormatVersion: 2
+guid: 037144612503fea4d9f8a3fdb4ff5ae6
+ScriptedImporter:
+  internalIDToNameTable: []
+  externalObjects: {}
+  serializedVersion: 2
+  userData: 
+  assetBundleName: 
+  assetBundleVariant: 
+  script: {fileID: 11500000, guid: 8404be70184654265930450def6a9037, type: 3}
+  generateWrapperCode: 1
+  wrapperCodePath: 
+  wrapperClassName: PlayerInput
+  wrapperCodeNamespace: 
