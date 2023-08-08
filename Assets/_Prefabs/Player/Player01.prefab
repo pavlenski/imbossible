@@ -13,8 +13,9 @@ GameObject:
   - component: {fileID: 760530386276857818}
   - component: {fileID: 2339831233872167966}
   - component: {fileID: 5495068028275571353}
-  - component: {fileID: 244068483223453045}
   - component: {fileID: 9010474512162334720}
+  - component: {fileID: 244068483223453045}
+  - component: {fileID: 552256604947125999}
   - component: {fileID: 2928427284519413071}
   - component: {fileID: 7844726639728728225}
   m_Layer: 0
@@ -159,18 +160,6 @@ MonoBehaviour:
   SpawnWithObservers: 1
   DontDestroyWithOwner: 0
   AutoObjectParentSync: 1
---- !u!114 &244068483223453045
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 8922539080150899858}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 63140dd7c3604cedbe60896aca22d12c, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!114 &9010474512162334720
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -185,6 +174,31 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   TransitionStateInfoList: []
   m_Animator: {fileID: 760530386276857818}
+--- !u!114 &244068483223453045
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8922539080150899858}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 63140dd7c3604cedbe60896aca22d12c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &552256604947125999
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8922539080150899858}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 271dac22707e4bb3af2b2f8daab33790, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _moveSpeed: 150
 --- !u!114 &2928427284519413071
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -210,5 +224,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _playerInput: {fileID: 2928427284519413071}
-  _moveSpeed: 150
   _fireBoltPrefab: {fileID: 3732156930759954492, guid: 68e9bc5e958995f45973a90f0393a033, type: 3}

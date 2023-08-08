@@ -11,11 +11,10 @@ public class PlayerCtrl : NetworkBehaviour
     private const string IS_MOVING = "is_moving";
 
     [SerializeField] private PlayerInputCtrl _playerInput;
-    [SerializeField] private float _moveSpeed = 5f;
     [SerializeField] private GameObject _fireBoltPrefab;
 
     private Animator _animator;
-    private CustomClientNetworkTransform _networkTransform;
+    private ServerAuthTransform _networkTransform;
 
     // positive for right, negative for left
     private sbyte _lastOrientation = 1;
@@ -24,13 +23,13 @@ public class PlayerCtrl : NetworkBehaviour
     {
         _playerInput = GetComponent<PlayerInputCtrl>();
         _animator = GetComponentInChildren<Animator>();
-        _networkTransform = GetComponent<CustomClientNetworkTransform>();
+        _networkTransform = GetComponent<ServerAuthTransform>();
     }
 
     private void Update()
     {
         if (!IsOwner) return;
-        
+
         if (!Input.GetKeyDown(KeyCode.Mouse0)) return;
 
         SpawnProjectileServerRpc(Vector2.right);
@@ -48,7 +47,7 @@ public class PlayerCtrl : NetworkBehaviour
 
     private void HandleMovement(Vector2 movementDirection)
     {
-        _networkTransform.MoveOwnerPlayer(movementDirection, _moveSpeed);
+        _networkTransform.MoveOwnerPlayer(movementDirection);
     }
 
     private void HandleAnimation(Vector2 movementDirection)
